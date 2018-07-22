@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cats!</title>
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a href="#" class="navbar-brand">Cats!</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbar1">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="exercici2-1.html" class="nav-link">Dogs</a>  
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Cats</a>  
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#dropdown" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown</a>
+                    <div class="dropdown-menu">
+                        <a href="exercici2-1.html" class="dropdown-item">Dogs</a>
+                        <a href="#" class="dropdown-item">Cats</a>
+                    </div>                    
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container w-50 mx-auto mt-5">
+        <div class="carousel slide" id="carousel1">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="img/cat-1.jpg" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="img/cat-2.jpg" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="img/cat-3.jpg" class="d-block w-100">
+                </div>
+            </div>
+            <a href="#carousel1" class="carousel-control-prev" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a href="#carousel1" class="carousel-control-next" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

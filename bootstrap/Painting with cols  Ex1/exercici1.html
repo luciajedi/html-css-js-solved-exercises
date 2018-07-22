@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 1</title>
+
+    <style>
+        .container{
+            border: 1px solid #000;
+            height: 100vh;
+        }
+
+        .bg-black{
+            background-color: #000 !important;
+        }
+
+        .bg-red{
+            background-color: red !important;
+        }
+
+        .bg-blue{
+            background-color: blue !important;
+        }
+
+        .bg-white{
+            background-color: #fff !important;
+        }
+
+        .bg-yellow{
+            background-color: yellow !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row bg-black" style="height: 30vh;">
+            <div class="col-2 bg-white"></div>
+            <div class="col-9 offset-1 bg-red"></div>
+        </div>
+        <div class="row bg-black" style="height: 2vh;">
+            <div class="col-9 offset-3 bg-red"></div>
+        </div>
+        <div class="row bg-black" style="height: 40vh;">
+            <div class="col-2 bg-white"></div>
+            <div class="col-9 offset-1 bg-red"></div>
+        </div>
+        <div class="row" style="height: 2vh;">
+            <div class="col-12 bg-black"></div>
+        </div>
+        <div class="row bg-black" style="height: 12vh;">
+            <div class="col-2 bg-blue"></div>
+            <div class="col-7 offset-1 bg-white"></div>
+            <div class="col-1 offset-1 bg-white"></div>
+        </div>
+        <div class="row bg-black" style="height: 2vh;">
+            <div class="col-2 bg-blue"></div>
+            <div class="col-7 offset-1 bg-white"></div>
+            <div class="col-2 bg-black"></div>
+        </div>
+        <div class="row bg-black" style="height: 12vh;">
+            <div class="col-2 bg-blue"></div>
+            <div class="col-7 offset-1 bg-white"></div>
+            <div class="col-1 offset-1 bg-yellow"></div>
+        </div>
+    </div>
+</body>
+</html>
