@@ -1,3 +1,3 @@
-# html-css-js-solved-exercises
+# Sass exercises
 
-URL: https://luciajedi.github.io/html-css-js-solved-exercises
+- Translate exercise

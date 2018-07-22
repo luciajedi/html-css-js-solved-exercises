@@ -1,0 +1,154 @@
+@mixin background-img($url, $position){
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-position: $position;
+}
+
+%margin-padding-0{
+  margin: 0;
+  padding: 0;
+}
+
+%default-settings{
+  height: 50%;
+  width: 100%;
+  @extend %margin-padding-0;
+}
+
+#container{
+  @extend %default-settings;
+}
+
+td, th {
+  font-size: 10pt;
+}
+
+h1 {
+  color: #D61831;
+  }
+
+h2 {
+  font-size: 10pt;
+  text-align:left;
+}
+
+#foto-alumne {
+  display:block;
+
+  img{
+    height: 100px;
+  }
+}
+
+#menu h2 {
+margin:0pt 0pt 0pt 4px;
+padding:0pt 0pt 0em 20px; 
+}
+
+/* raco */
+
+%height-cap{
+  height: 55px;
+}
+
+#cap_estreta {
+  background-color: #BEB295;
+  @extend %height-cap;
+
+  #logo {
+    @extend %height-cap;
+  }
+
+  #foto-raco {
+    @include background-img("../imatges/salaOrdinadors.jpg", 200px top);
+    @extend %height-cap;
+    width:1300px;
+  }
+}
+
+/* barra:logout */
+#logout {
+  float:right;  
+  width:12em;
+  @extend %margin-padding-0;
+  height:100%;
+}
+
+#info-alumne {
+  background-color:#BEB295;
+  @include background-img("../imatges/Cantonada_grisa_esquerra.gif", bottom left);
+  padding: 1em;
+  margin-bottom:1em;
+  padding:0pt 1em 1em; 
+}
+h4 {
+  color:#297DB5;
+  margin: 0px;
+}
+
+.dadaAlumne{
+  margin-top: 1em;
+  font-weight: bold;
+}
+/* contingut */
+
+#contingut{
+  top:0;
+  left:0;
+  }
+
+#contingutsensedreta {
+  position:relative;
+  @extend %margin-padding-0;
+  margin-left:16em;
+  margin-right:1em;
+  padding-bottom: 1em;
+  font-size: 10pt;
+}
+
+ul {
+  #contingutsensedreta &, #cosAvis &{
+    @extend %margin-padding-0;
+    list-style-image: url("../imatges/Botonet_llistats.gif");
+    padding-left:20px;
+    padding-top:0.2em;
+    padding-bottom:0.2em 
+  }
+}
+    
+#dreta li{
+  list-style-type:none;
+  list-style-position:outside;
+  @extend %margin-padding-0;
+  padding-top:0.2em;
+  padding-bottom:0.2em 
+}    
+
+/* calendari */
+.texto_agenda {
+  color:#297DB5;
+ }
+
+.texto_agenda2 {
+  font-weight: bold;
+  color:#BEB295;
+}
+
+
+/*************
+ * Calendari *
+ *************/
+
+@import "calendari";
+  
+/************
+ * NOTICIES *
+ ************/
+
+@import "noticies";
+
+/***********
+ * HORARIS *
+ ***********/
+
+@import "horaris";

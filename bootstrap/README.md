@@ -1,3 +1,4 @@
-# html-css-js-solved-exercises
+# Bootstrap exercises
+## By David
 
-URL: https://luciajedi.github.io/html-css-js-solved-exercises
+URL: https://luciajedi.github.io/html-css-js-solved-exercises/bootstrap/index.html

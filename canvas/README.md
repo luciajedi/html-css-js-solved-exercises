@@ -1,3 +1,4 @@
-# html-css-js-solved-exercises
+# Canvas exercises
+## by David
 
-URL: https://luciajedi.github.io/html-css-js-solved-exercises
+URL: https://luciajedi.github.io/html-css-js-solved-exercises/canvas/snake/index.html

@@ -1,0 +1,41 @@
+article{
+  @extend %default-settings;
+}
+ 
+.llista_noticies, .llista_avisos, .postit_grup {
+  padding-top:1em;
+}
+ 
+.text_noticia {
+  @include background-img("../imatges/Bola_vermella.gif", 0 0);
+  padding-left:20px;
+  color: #808080;
+  font-weight: bold;
+}
+
+.postit {
+  padding-left:20px;
+}
+
+.noticia_assig {
+  padding-bottom: 1em;
+  
+  h2{
+    padding: 0em;
+    padding-left: 20px;
+  }
+}
+
+/* Avis per espai (postit) */
+.marc_postit {
+  @include background-img("../imatges/Cantonada_blanca_fons_gris.gif", bottom right);
+  padding: 1em;
+  padding-bottom:20px;
+  background-color:white;
+}
+
+#cosAvis {
+  background-color:white;
+  margin:0px;
+  padding:1em;
+}

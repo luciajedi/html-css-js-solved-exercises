@@ -1,0 +1,77 @@
+$caixes: 4;
+$calendari-color: #EEEDEA;
+
+@mixin colors($bck-col, $col){
+  color: $col;
+  background-color: $bck-col;
+}
+
+main{
+  @extend %default-settings;
+}
+
+.calendariMes{
+
+  td{
+  width:2em;
+  text-align:center;
+  background-color: $calendari-color;
+  padding:2px;
+  font-size:80%;
+  font-weight:bold;
+   
+ 
+    &.calendariNomMes {
+      padding-left: 0.5em;
+      width:auto;
+      text-transform: lowercase;
+      @include colors(#C0DAE9, white); 
+      text-align:left;
+      font-size:100%;
+    }
+
+    &.calendariDiaSetmana {
+      @include colors( #D0D1CC, #297DB5); 
+      font-weight:normal;
+    }
+
+    &.diaAnterior , &.diaFutur  {
+      @include colors( $calendari-color, #808080);
+  
+    }
+
+    &.festa {
+      @include colors( $calendari-color, #D61831);
+    }
+
+    &.event {
+      @include colors(#297DB5, white); 
+    }
+
+    &.avui {
+      background-color: #FED45E;
+    }
+  }
+}
+
+.event {
+  background-image:none;
+}
+
+/* Per si tornen a ser 3 caixes, perque ara son 4 */
+@if $caixes == 3 {
+  #caixetes {
+    width: 33%;
+  }
+} @else if $caixes == 4{
+  #caixetes{
+    width: 25%;
+  }
+}
+
+/* Another way:
+
+#caixetes{
+    width: (100% / 4);
+}
+*/
