@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS Snake</title>
+    <style>
+        body,html{
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 100vw;
+            height: 100vh;
+
+            background: rgb(76,158,2);
+            background: linear-gradient(324deg, rgba(76,158,2,1) 0%, rgba(83,236,144,1) 100%);
+        }
+
+        canvas{
+            border: 15px solid white;
+            border-radius: 15px;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        var GameOver = false;
+        var fps = 200;
+        var appleBoost = 10; //fps-=appleBoost evry time that snek eats an aooke
+
+        var canvas;
+        var ctx;
+
+        var WIDTH;
+        var HEIGHT;
+
+        var cellSize = 20;
+        var dir = ["left","up","right","down"];
+
+        var snake = {
+            body:[
+                {x:cellSize,y:cellSize}
+            ] ,
+            currentDir: "none"
+        };
+
+        var apple = {
+            x: 0,
+            y: 0,
+        }
+
+        var inter;
+        var move = false; //only 1 move per frame
+
+        function init(){
+            canvas = document.getElementById("snake");
+            ctx = canvas.getContext("2d");
+            canvas.focus();
+
+            WIDTH = canvas.width;
+            HEIGHT = canvas.height;
+            updateFruit();
+            updateSnake();
+
+            inter = setInterval(update,fps);
+        }
+
+        function updateFruit(){
+            var newx = Math.floor(Math.random() * (WIDTH/cellSize ))*cellSize;
+            var newy = Math.floor(Math.random() * (HEIGHT/cellSize ))*cellSize;
+            var collision = false;
+
+            for(var i = 0; i < snake.body.length; i++){ //check fruit spawn
+                if(snake.body[i].x == newx && snake.body[i].y == newy) collision = true;
+            }
+
+            if(!collision){
+                apple.x = newx;
+                apple.y = newy;
+            }else{
+                updateFruit();
+            }
+        }
+
+        function drawFruit(){
+            draw(apple.x,apple.y,cellSize,"#CF000F");
+        }
+
+        function updateSnake(){
+
+            var newPosx = snake.body[0].x;
+            var newPosy = snake.body[0].y;
+
+            if(snake.currentDir == dir[0]) snake.body[0].x -= cellSize;
+            else if(snake.currentDir == dir[1]) snake.body[0].y -= cellSize;
+            else if(snake.currentDir == dir[2]) snake.body[0].x += cellSize;
+            else if(snake.currentDir == dir[3]) snake.body[0].y += cellSize;
+
+            draw(snake.body[0].x,snake.body[0].y,cellSize,"#013243");
+
+            for(var i = 1; i < snake.body.length; i++){					
+
+                var posx2;
+                var posy2;
+
+                draw(newPosx,newPosy,cellSize,"#013243");
+
+                posx2 = snake.body[i].x;
+                posy2 = snake.body[i].y;
+
+                snake.body[i].x = newPosx;
+                snake.body[i].y = newPosy;	
+
+                newPosx = posx2;
+                newPosy = posy2;
+                                    
+            }
+        }
+
+        function draw(xpos,ypos,size,color){
+            ctx.beginPath();
+            ctx.fillStyle=color;
+            ctx.fillRect(xpos,ypos,size,size);
+        }   
+
+        function paintBoard(){
+            ctx.beginPath();
+            ctx.fillStyle="white";
+            ctx.fillRect(0,0,WIDTH,HEIGHT);
+        }
+
+        function update(){
+            ctx.clearRect(0,0,WIDTH,HEIGHT);
+            checkGameOver();
+            if(!GameOver){
+                move = false;
+                paintBoard();
+                
+                //eats fruit
+                if(snake.body[0].x == apple.x && snake.body[0].y == apple.y){
+                    updateFruit();
+
+                    var niwx = null;
+                    var niwy = null;
+                    var last = snake.body.length - 1;
+
+                    if(snake.currentDir == dir[0]) niwx = snake.body[last].x - cellSize;
+                    else if(snake.currentDir == dir[1]) niwy = snake.body[last].y - cellSize;
+                    else if(snake.currentDir == dir[2]) niwx = snake.body[last].x + cellSize;
+                    else if(snake.currentDir == dir[3]) niwy = snake.body[last].y + cellSize;
+
+                    if(niwx == null) niwx = snake.body[last].x;
+                    if(niwy == null) niwy = snake.body[last].y;
+
+                    snake.body.push({x:niwx,y:niwy});
+
+                    //More velocity over points
+                    if(fps > 100){
+                        clearInterval(inter);
+                        fps-=appleBoost;
+                        inter = setInterval(update,fps);
+                    }
+                }else{
+                    drawFruit();
+                }
+                updateSnake();
+            }else{
+
+                //Game Over screen
+                clearInterval(inter);
+
+                var backColor = "rgb(234, 236, 239)";
+                ctx.beginPath();
+                ctx.fillStyle=backColor;
+                ctx.fillRect(0,0,WIDTH,HEIGHT);
+                canvas.style.borderColor=backColor;
+
+                var grd;
+                
+                grd=ctx.createLinearGradient(0,0,WIDTH,HEIGHT);
+                grd.addColorStop(0,"rgba(76,158,2,1)");
+                grd.addColorStop(1,"rgba(83,236,144,1)");
+
+                ctx.beginPath();
+                ctx.font = "50px Impact";                
+                ctx.fillStyle = grd;
+                ctx.textAlign = "center";
+                ctx.fillText("Game Over",WIDTH/2,HEIGHT/2);               
+
+                ctx.beginPath();
+                ctx.font = "20px Impact";
+                ctx.fillStyle = grd;
+                ctx.textAlign = "center";
+                ctx.fillText("F5 to restart",WIDTH/2,HEIGHT/2+HEIGHT/12);
+            }
+        }
+
+        function checkGameOver(){
+            var snakeHead = snake.body[0];
+
+            if(snakeHead.x <= 0 || snakeHead.y <= 0 || snakeHead.x >= WIDTH || snakeHead.y >= HEIGHT) GameOver = true; //check map bounding 
+
+            if(snake.body.length > 1){ //check own snake collision
+                for(var i = 1; i < snake.body.length; i++){
+                    if(snakeHead.x == snake.body[i].x && snakeHead.y == snake.body[i].y) GameOver = true;
+                }
+            }	
+        }
+        window.onload=function(){
+            init();
+            window.onkeydown = function(e){
+                var evn = e || window.event;
+                if(!move){
+                    if(evn.keyCode == 37 && snake.currentDir != dir[2]) snake.currentDir = dir[0];	
+                    else if(evn.keyCode == 38 && snake.currentDir != dir[3]) snake.currentDir = dir[1];	
+                    else if(evn.keyCode == 39 && snake.currentDir != dir[0]) snake.currentDir = dir[2];	
+                    else if(evn.keyCode == 40 && snake.currentDir != dir[1]) snake.currentDir = dir[3];
+                    move = true;		
+                }			
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+    <canvas id="snake" width="500" height="500"></canvas>
+</body>
+</html>
