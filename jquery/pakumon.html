@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    html,body{
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      text-transform: capitalize;
+    }
+
+    td, th{
+      border: 1px solid black;
+      width: 15%;
+    }
+
+    th{
+      height: 20%;
+    }
+
+    table{
+      border-collapse: collapse;
+      text-align: center;
+      width: 40%;
+      height: 30%;
+      margin-bottom: 10px;
+    }
+
+    main{
+      width: 100%;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    input{
+      width: 200px;
+    }
+
+  </style>
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript">
+
+  var url = "https://htmlapi.jediupc.com/pokemons";
+  var id = 1;
+  var MAX_ID = 6;
+  var MIN_ID = 1;
+
+    function checkSides(){
+      if(id >= MAX_ID) $("#next").prop("disabled", true);
+      else if (id <= MIN_ID) $("#last").prop("disabled", true);
+      else if ($("#next").prop("disabled")) $("#next").prop("disabled", false);
+      else if ($("#last").prop("disabled")) $("#last").prop("disabled", false);
+    }
+
+    function goSides(side){
+      // 1 right
+      // -1 left
+
+      id += side;
+      checkSides();
+
+      loadTable(url + "/" + id, false);
+    };
+
+    function loadTable(url, not_id, name){
+     
+      $.get(url,function(data){
+
+        if(not_id){
+          $("#name").text(name);
+        }else{
+          $("#name").text(data.name);
+        }
+
+        if(data == ""){
+          $("#pkm-id").text("No data");
+          $("#sprite-front").text("No data");
+          $("#shiny-front").text("No data");
+          $("#pkm-name").text("No data");
+          $("#pkm-type").text("No data");
+          $("#hidden-move").text("No data");
+        }else{
+
+          if (not_id){
+            data = data[0];
+          }
+
+          id = data.id;
+
+          $("#pkm-id").text(data.num);
+
+          var regular;
+          var shiny;
+
+          if( "front" in data.images[0]){
+            regular = data.images[0];
+            shiny = data.images[1];
+          }else{
+            regular = data.images[1];
+            shiny = data.images[0];
+          }
+          $("#sprite-front").html('<img src="'+regular.front+'" alt="'+ data.name +' front">');
+          //$("#sprite-back").html('<img src="'+regular.back+'" alt="'+ data.name +' back">');
+          $("#shiny-front").html('<img src="'+shiny.front_shiny+'" alt="'+ data.name +' shiny front">');
+          //$("#shiny-back").html('<img src="'+shiny.back_shiny+'" alt="'+ data.name +' shiny back">');
+
+          $("#pkm-name").text(data.name);
+
+          var types = "";
+          var i;
+
+          for(i = 0; i<data.types.length; i++){
+            types += data.types[i].type.name + " & ";
+          }
+
+          $("#pkm-type").text(types.substring(0,types.length-3));
+
+          if(data.moves.HM != null)
+            $("#hidden-move").text(data.moves.HM);
+          else
+            $("#hidden-move").text("None");
+        }
+      }, "json")
+      .fail(function(){alert("Fail!");});
+
+    };
+
+    function searchBox(){
+      var text = $("#text-search").val();
+      if (text != ""){
+        console.log("-"+text+"-");
+        if($.isNumeric(text)){
+          loadTable(url + "?num=" + text, true, text);
+        }else{
+          text = text.toLowerCase();
+          loadTable(url + "?name=" + text, true, text);
+        }
+        checkSides();
+      }    
+    }
+
+    $().ready(function(){
+      
+      loadTable(url + "/" + id, false);
+
+      $("#text-search").keydown(function(e){
+        if (e.keyCode == 13) searchBox();
+      })
+
+      $("#search").click(function(){ 
+        searchBox();
+      });
+      $("#next").click(function(){
+        goSides(1);
+      });
+      $("#last").click(function(){
+        goSides(-1);
+      });
+      $("#last").prop("disabled",true);
+    });
+
+
+  </script>
+</head>
+<body>
+<main>
+  <h1> Pokemon: <b id="name"></b></h1>
+<table>
+  <tr>
+    <th>Code</th>
+    <!-- 
+    <th colspan=2>Normal sprite</th>
+    <th colspan=2>Shiny sprite</th> 
+    -->
+    <th>Normal sprite</th>
+    <th>Shiny sprite</th>
+    <th>Name</th>
+    <th>Type</th>
+    <th>HM</th>
+  </tr>
+  <tr>
+    <td id="pkm-id"></td>
+    <td id="sprite-front"></td>
+    <!--<td id="sprite-back"></td>-->
+    <td id="shiny-front"></td>
+    <!--<td id="shiny-back"></td>-->
+    <td id="pkm-name"></td>
+    <td id="pkm-type"></td>
+    <td id="hidden-move"></td>
+  </tr>
+</table>
+<div id="search-container">
+<button id="last"><</button>
+<input id="text-search" type="text" name="search" placeholder="Write a Pokemon code or name">
+<button id="search"> Search </button>
+<button id="next">></button>
+</div>
+</main>
+</body>
+</html>
