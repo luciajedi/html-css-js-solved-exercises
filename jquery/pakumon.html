@@ -49,9 +49,16 @@
   var MAX_ID = 6;
   var MIN_ID = 1;
 
-    function checkSides(){
-      if(id >= MAX_ID) $("#next").prop("disabled", true);
-      else if (id <= MIN_ID) $("#last").prop("disabled", true);
+    function checkSides(){   
+
+      if(id >= MAX_ID){
+        $("#next").prop("disabled", true);
+        $("#last").prop("disabled", false);
+      } 
+      else if (id <= MIN_ID){
+        $("#last").prop("disabled", true);
+        $("#next").prop("disabled", false);
+      } 
       else if ($("#next").prop("disabled")) $("#next").prop("disabled", false);
       else if ($("#last").prop("disabled")) $("#last").prop("disabled", false);
     }
@@ -61,7 +68,6 @@
       // -1 left
 
       id += side;
-      checkSides();
 
       loadTable(url + "/" + id, false);
     };
@@ -124,8 +130,9 @@
           else
             $("#hidden-move").text("None");
         }
+        checkSides();
       }, "json")
-      .fail(function(){alert("Fail!");});
+      .fail(function(){alert("Get fail!");});
 
     };
 
@@ -139,7 +146,6 @@
           text = text.toLowerCase();
           loadTable(url + "?name=" + text, true, text);
         }
-        checkSides();
       }    
     }
 
