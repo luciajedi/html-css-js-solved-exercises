@@ -1,0 +1,15 @@
+
+Why is URL encoding important?
+Because URLs can only be sent using ASCII chars.
+Anything outside this charset like spaces, symbols and stress or accent marks, should be converted.
+
+Conversion:
+
+- space --> +  or %20
+- á --> %C3%A1
+- è --> %C3%A8
+- ö --> %C3%B6
+- < --> %3C
+- ) --> %29
+
+Special mention to ‹ that is %E2%80%B9

@@ -1,0 +1,25 @@
+Use of tags:
+
+- <br> : line break
+- <hr> : horizontal line
+- <ul> : unordered list (bullets)
+- <ol> : ordered list (numerical, alphabetical)
+- <li> : item on a list
+- <strong>: defines important text. Makes the text bold.
+- <b>: bold, for text
+- <em>: defines a text with emphasis. Makes the text italic.
+- <i>: italic, for text
+- <u>: underlined
+- <h1>: most important heading
+- <h6>: less important heading
+- <tr>: table row
+- <th>: table header cell/column
+- <td>: table cell/column
+- <sub>: subscript (smaller font, half bottom)
+- <sup>: superscript (smaller font, half top)
+- <legend>: caption of a <fieldset>
+
+What is an empty tag? Give an example.
+
+An empty tag is a tag with no content, and therefore does not need to be closed.
+Examples of empty tags are <br>, <hr>, <img>, <meta>, <input>...
