@@ -41,7 +41,7 @@
     }
 
   </style>
-  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript" src="../jquery.min.js"></script>
   <script type="text/javascript">
 
   var url = "https://htmlapi.jediupc.com/pokemons";
@@ -49,16 +49,16 @@
   var MAX_ID = 6;
   var MIN_ID = 1;
 
-    function checkSides(){   
+    function checkSides(){
 
       if(id >= MAX_ID){
         $("#next").prop("disabled", true);
         $("#last").prop("disabled", false);
-      } 
+      }
       else if (id <= MIN_ID){
         $("#last").prop("disabled", true);
         $("#next").prop("disabled", false);
-      } 
+      }
       else if ($("#next").prop("disabled")) $("#next").prop("disabled", false);
       else if ($("#last").prop("disabled")) $("#last").prop("disabled", false);
     }
@@ -73,7 +73,7 @@
     };
 
     function loadTable(url, not_id, name){
-     
+
       $.get(url,function(data){
 
         if(not_id){
@@ -146,18 +146,18 @@
           text = text.toLowerCase();
           loadTable(url + "?name=" + text, true, text);
         }
-      }    
+      }
     }
 
     $().ready(function(){
-      
+
       loadTable(url + "/" + id, false);
 
       $("#text-search").keydown(function(e){
         if (e.keyCode == 13) searchBox();
       })
 
-      $("#search").click(function(){ 
+      $("#search").click(function(){
         searchBox();
       });
       $("#next").click(function(){
@@ -178,9 +178,9 @@
 <table>
   <tr>
     <th>Code</th>
-    <!-- 
+    <!--
     <th colspan=2>Normal sprite</th>
-    <th colspan=2>Shiny sprite</th> 
+    <th colspan=2>Shiny sprite</th>
     -->
     <th>Normal sprite</th>
     <th>Shiny sprite</th>
